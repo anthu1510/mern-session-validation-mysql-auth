@@ -1,0 +1,4 @@
+.vscode
+/server/.vscode
+/server/node_modules
+/server/pnpm-lock.yaml
