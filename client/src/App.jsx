@@ -1,14 +1,18 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import AuthLayout from "./components/auth/layout/Layout";
+import Login from "./components/auth/login/Login";
 
 const App = () => {
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-xl-12">
-          <h1>Welcome</h1>
-        </div>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AuthLayout />}>
+          <Route index element={<Login />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

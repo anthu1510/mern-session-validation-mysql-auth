@@ -10,7 +10,7 @@ const {
 const con = require("../config/database");
 
 router.get("/", (req, res) => {
-  res.send("user get router");
+  res.send("api worked....");
 });
 
 router.get("/:id", verifyToken, (req, res) => {
@@ -110,7 +110,8 @@ router.post(
     }
 
     const { email, password } = req.body;
-    const qry = "SELECT * FROM users WHERE email=?";
+    const qry =
+      "SELECT * FROM users JOIN user_roles ON users.role_id = user_roles.id WHERE users.email=? AND users.status='active'";
     con.query(qry, [email], (err, result) => {
       if (err) throw err;
       const user = result[0];
@@ -123,8 +124,9 @@ router.post(
         });
 
       const payload = {
-        id: result[0].id,
-        name: result[0].name,
+        id: user.id,
+        role_id: user.role_id,
+        name: user.name,
       };
 
       const token = generateAccessToken(payload);
